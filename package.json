@@ -30,6 +30,7 @@
     "@nestjsx/crud": "^4.6.2",
     "class-transformer": "^0.3.1",
     "class-validator": "^0.12.2",
+    "dotenv": "^8.2.0",
     "fastify-swagger": "^3.5.0",
     "passport": "^0.4.1",
     "pg": "^8.4.2",
@@ -37,7 +38,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
-    "sequelize": "^6.1.1",
+    "sequelize": "^6.3.5",
     "sequelize-typescript": "^2.0.0-beta.0",
     "swagger-ui-express": "^4.1.4"
   },

@@ -10,7 +10,7 @@ import { UsersModule } from './modules/users/users.module';
       dialect: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'postgres',
+      username: 'nestjs',
       password: 'nestjs',
       database: 'nestjs',
       autoLoadModels: true,
