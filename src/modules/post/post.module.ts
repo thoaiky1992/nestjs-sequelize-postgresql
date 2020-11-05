@@ -7,6 +7,7 @@ import { PostsController } from './post.controller';
 import { Post } from '../post/post.entity';
 
 import { SequelizeModule } from '@nestjs/sequelize';
+import { AuthModule } from 'src/authenticate/auth.module';
 
 
 @Module({

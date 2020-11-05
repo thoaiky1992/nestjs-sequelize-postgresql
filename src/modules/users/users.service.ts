@@ -21,4 +21,20 @@ export class UsersService extends SequelizeModelService<User> {
   ) {
     super(model, sequelize, request);
   }
+
+  async findOneById(id):Promise<User>{
+    return await this.model.findByPk(id);
+  }
+
+  async findOneByEmail(email):Promise<User>{
+    return await this.model.findOne({
+      where: {
+        email
+      }
+    });
+  }
+
+  async create(user:UserDto):Promise<User>{
+    return await this.model.createOne(UserDto);
+  }
 }
