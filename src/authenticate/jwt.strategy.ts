@@ -4,11 +4,14 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { authDto } from './auth.dto';
 import { config } from 'dotenv';
+import { InjectModel } from '@nestjs/sequelize';
+import { User } from 'src/modules/users/user.entity';
+import { Model } from 'sequelize';
 config();
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(private readonly authService: AuthService) {
+    constructor(@InjectModel(User) protected model: typeof User) {
         super({
              jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
              ignoreExpiration: false,
@@ -16,12 +19,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
-    async validate(payload: authDto) {
-        // check if user in the token actually exist
-        const user = await this.authService.validateUser(payload);
-        if (!user) {
-            throw new UnauthorizedException('You are not authorized to perform the operation');
-        }
+    async validate(payload) {
+        const user = await this.model.findByPk(payload.id);
         return user;
     }
 }

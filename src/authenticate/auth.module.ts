@@ -7,17 +7,21 @@ import { JwtStrategy } from './jwt.strategy';
 import { UsersModule } from 'src/modules/users/users.module';
 import { AuthController } from './auth.controller';
 import { config } from 'dotenv';
+import { User } from 'src/modules/users/user.entity';
+import { SequelizeModule } from '@nestjs/sequelize';
 config();
 
 @Global()
 @Module({
     imports: [
-        UsersModule,
-        PassportModule.register({ defaultStrategy: 'jwt' }),
+        
+        SequelizeModule.forFeature([User]),
+        PassportModule,
         JwtModule.register({
             secret: process.env.MAIN_JWT_TOKEN,
             signOptions: { expiresIn: '30 days' },
         }),
+        UsersModule,
     ],
     providers: [
         AuthService,

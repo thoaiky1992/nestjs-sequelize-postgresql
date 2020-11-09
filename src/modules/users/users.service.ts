@@ -11,7 +11,7 @@ import { Request } from 'express';
 import { InjectModel } from '@nestjs/sequelize';
 import { Model } from 'sequelize-typescript';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class UsersService extends SequelizeModelService<User> {
   constructor(
     @InjectModel(User)
@@ -23,11 +23,11 @@ export class UsersService extends SequelizeModelService<User> {
   }
 
   async findOneById(id):Promise<User>{
-    return await this.model.findByPk(id);
+    return await this.model.scope('authenticate').findByPk(id);
   }
 
   async findOneByEmail(email):Promise<User>{
-    return await this.model.findOne({
+    return await this.model.scope('authenticate').findOne({
       where: {
         email
       }
@@ -35,6 +35,6 @@ export class UsersService extends SequelizeModelService<User> {
   }
 
   async create(user:UserDto):Promise<User>{
-    return await this.model.createOne(UserDto);
+    return await this.model.scope('authenticate').createOne(UserDto);
   }
 }

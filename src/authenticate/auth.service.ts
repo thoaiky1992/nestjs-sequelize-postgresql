@@ -4,17 +4,26 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/modules/users/users.service';
 import { UserDto } from 'src/modules/users/user.dto';
 import { authDto } from './auth.dto';
+import { User } from 'src/modules/users/user.entity';
+import { InjectModel } from '@nestjs/sequelize';
+import { Sequelize } from 'sequelize';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable()
 export class AuthService {
     constructor(
-        private userService: UsersService,
-        private jwtService: JwtService,
+        @InjectModel(User)
+        private userModel: typeof User,
+        private sequelize: Sequelize,
+        private jwtService: JwtService
     ) { }
 
     async validateUser(authDto : authDto) {
         // find if user exist with this email
-        const user = await this.userService.findOneByEmail(authDto.email);
+        const user = await this.userModel.scope('authenticate').findOne({
+            where: {
+                email: authDto.email
+            }
+        });
         
         if (!user) {
             return null;
@@ -22,6 +31,10 @@ export class AuthService {
         
         // find if user password match
         const match = await this.comparePassword(authDto.password, user['dataValues'].password);
+        console.log(authDto.password, user['dataValues'].password);
+        
+        console.log(match);
+        
         if (!match) {
             return null;
         }
@@ -44,7 +57,7 @@ export class AuthService {
         const pass = await this.hashPassword(user.password);
 
         // create the user
-        const newUser = await this.userService.create({ ...user, password: pass });
+        const newUser = await this.userModel.scope('authenticate').create(user);
 
         // tslint:disable-next-line: no-string-literal
         const { password, ...result } = newUser['dataValues'];

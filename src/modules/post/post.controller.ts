@@ -15,6 +15,7 @@ import { JwtAuthGuard } from 'src/authenticate/jwt-auth.guard';
     }
 })
 @ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('posts')
 export class PostsController implements CrudController<PostEntity> {
     constructor(public service: PostsService){}
