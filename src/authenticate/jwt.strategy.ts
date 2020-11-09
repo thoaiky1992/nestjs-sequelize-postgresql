@@ -7,15 +7,17 @@ import { config } from 'dotenv';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from 'src/modules/users/user.entity';
 import { Model } from 'sequelize';
+import { JwtService } from '@nestjs/jwt';
 config();
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(@InjectModel(User) protected model: typeof User) {
+    constructor(@InjectModel(User) protected model: typeof User,private jwtService: JwtService) {
         super({
-             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-             ignoreExpiration: false,
-             secretOrKey: process.env.MAIN_JWT_TOKEN,
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            ignoreExpiration: false,
+            secretOrKey: process.env.MAIN_JWT_TOKEN,
+            passReqToCallback: false
         });
     }
 

@@ -31,16 +31,13 @@ export class AuthService {
         
         // find if user password match
         const match = await this.comparePassword(authDto.password, user['dataValues'].password);
-        console.log(authDto.password, user['dataValues'].password);
-        
-        console.log(match);
         
         if (!match) {
             return null;
         }
 
         // tslint:disable-next-line: no-string-literal
-        const { password, ...result } = user['dataValues'];
+        const result = user['dataValues'];
         
         return result;
     }
