@@ -20,12 +20,10 @@ config();
     ],
     providers: [
         AuthService,
-        LocalStrategy,
         JwtStrategy
     ],
     controllers: [AuthController],
     exports:[
-        PassportModule,
         AuthService,
     ]
 })

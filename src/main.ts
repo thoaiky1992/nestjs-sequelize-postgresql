@@ -8,6 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   const options = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('API Swagger')
     .setDescription('The API description')
     .setVersion('1.0')

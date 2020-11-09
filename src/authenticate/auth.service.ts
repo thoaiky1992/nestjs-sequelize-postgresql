@@ -1,25 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Scope } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/modules/users/users.service';
 import { UserDto } from 'src/modules/users/user.dto';
+import { authDto } from './auth.dto';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class AuthService {
     constructor(
-        private readonly userService: UsersService,
-        private readonly jwtService: JwtService,
+        private userService: UsersService,
+        private jwtService: JwtService,
     ) { }
 
-    async validateUser(username: string, pass: string) {
+    async validateUser(authDto : authDto) {
         // find if user exist with this email
-        const user = await this.userService.findOneByEmail(username);
+        const user = await this.userService.findOneByEmail(authDto.username);
         if (!user) {
             return null;
         }
 
         // find if user password match
-        const match = await this.comparePassword(pass, user.password);
+        const match = await this.comparePassword(authDto.password, user.password);
         if (!match) {
             return null;
         }
