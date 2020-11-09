@@ -14,23 +14,27 @@ export class AuthService {
 
     async validateUser(authDto : authDto) {
         // find if user exist with this email
-        const user = await this.userService.findOneByEmail(authDto.username);
+        const user = await this.userService.findOneByEmail(authDto.email);
+        
         if (!user) {
             return null;
         }
-
+        
         // find if user password match
-        const match = await this.comparePassword(authDto.password, user.password);
+        const match = await this.comparePassword(authDto.password, user['dataValues'].password);
         if (!match) {
             return null;
         }
 
         // tslint:disable-next-line: no-string-literal
         const { password, ...result } = user['dataValues'];
+        
         return result;
     }
 
-    public async login(user) {
+    public async login(payload:authDto) {
+        
+        const user = await this.validateUser(payload);
         const token = await this.generateToken(user);
         return { user, token };
     }
@@ -63,7 +67,8 @@ export class AuthService {
     }
 
     private async comparePassword(enteredPassword, dbPassword) {
-        const match = await bcrypt.compare(enteredPassword, dbPassword);
-        return match;
+        // const match = await bcrypt.compare(enteredPassword, dbPassword);
+        // return match;
+        return enteredPassword === dbPassword;
     }
 }
