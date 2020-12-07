@@ -10,7 +10,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .addBearerAuth()
     .setTitle('API Swagger')
-    .setDescription('The API description')
+    .setDescription('The API description')  
     .setVersion('1.0')
     .addTag('Nestjs-Sequelize-postgresql')
     .build();

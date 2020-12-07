@@ -14,8 +14,6 @@ import { JwtAuthGuard } from 'src/authenticate/jwt-auth.guard';
         type: UserDto
     }
 })
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController implements CrudController<User> {
     constructor(public service: UsersService){}

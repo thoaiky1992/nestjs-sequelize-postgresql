@@ -17,6 +17,7 @@ config();
       password: process.env.MAIN_DB_PASSWORD,
       database: process.env.MAIN_DB_NAME,
       autoLoadModels: true,
+      synchronize: true,
     }),
     UsersModule,
     PostsModule,
