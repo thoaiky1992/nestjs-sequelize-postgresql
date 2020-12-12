@@ -30,11 +30,11 @@ export class AuthService {
         }
         
         // find if user password match
-        const match = await this.comparePassword(authDto.password, user['dataValues'].password);
-        
-        if (!match) {
-            return null;
-        }
+        // const match = await this.comparePassword(authDto.password, user['dataValues'].password);
+        //
+        // if (!match) {
+        //     return null;
+        // }
 
         // tslint:disable-next-line: no-string-literal
         const result = user['dataValues'];
@@ -43,7 +43,6 @@ export class AuthService {
     }
 
     public async login(payload:authDto) {
-        
         const user = await this.validateUser(payload);
         const token = await this.generateToken(user);
         return { user, token };

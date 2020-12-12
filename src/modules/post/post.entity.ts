@@ -8,8 +8,6 @@ import { User } from '../users/user.entity';
     timestamps: true
 })
 export class Post extends Model<Post> {
-    
-
     @Column({
         type: DataType.STRING,
         allowNull: false,
