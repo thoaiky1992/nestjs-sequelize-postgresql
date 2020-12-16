@@ -7,7 +7,8 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/authenticate/jwt-auth.guard';
 import { Sequelize } from 'sequelize';
 import { FileInterceptor } from '@nestjs/platform-express/multer/interceptors/file.interceptor';
-
+import { join } from 'path';
+import * as fs from 'fs';
 
 @ApiTags('POSTS')
 @Crud({
@@ -22,8 +23,11 @@ export class PostsController implements CrudController<PostEntity> {
     @Post('upload')
     @UseInterceptors(FileInterceptor('image'))
     uploadFile(@UploadedFile() file) {
+        const filename = Date.now() + '.' + file.originalname.trim().split('.').slice(-1)[0];
+        fs.writeFileSync(join(__dirname,'..','..','..','public','uploads',
+        'images',filename),file.buffer)
         console.log(file);
         
-        return { location : 'https://locobee.com/mag/wp-content/uploads/2018/06/Locobee_Naruto_1.jpg' }
+        return { location : join('/','uploads','images',filename) }
     }
 }

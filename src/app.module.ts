@@ -6,10 +6,16 @@ import { PostsModule } from './modules/post/post.module';
 import { UsersModule } from './modules/users/users.module';
 import { config } from 'dotenv';
 import { AuthModule } from './authenticate/auth.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 config();
 
 @Module({
-  imports: [SequelizeModule.forRoot({
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..','public'),
+    }),
+    SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.MAIN_DB_HOST,
       port: Number(process.env.MAIN_DB_PORT),
