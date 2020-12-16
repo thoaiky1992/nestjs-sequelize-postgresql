@@ -1,14 +1,12 @@
-import { Controller, Get, Inject, UseGuards, } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { CrudRequest, ParsedRequest, CrudRequestInterceptor, Crud, CrudController } from '@nestjsx/crud';
+import { Controller, Post, UploadedFile, UseGuards, UseInterceptors, } from '@nestjs/common';
+import { Crud, CrudController } from '@nestjsx/crud';
 import { PostsService } from './post.service';
 import { Post as PostEntity } from './post.entity';
 import { PostDto } from './post.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/authenticate/jwt-auth.guard';
-import { Request } from 'express';
-import { REQUEST } from '@nestjs/core';
 import { Sequelize } from 'sequelize';
+import { FileInterceptor } from '@nestjs/platform-express/multer/interceptors/file.interceptor';
 
 
 @ApiTags('POSTS')
@@ -17,14 +15,15 @@ import { Sequelize } from 'sequelize';
         type: PostDto
     }
 })
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @Controller('posts')
 export class PostsController implements CrudController<PostEntity> {
     constructor(public service: PostsService,private sequelize: Sequelize){}
 
-    @Get('test')
-    async TestRequest(){
-        return await this.sequelize.query('SELECT * FROM posts where id = 2',{ model: PostEntity});
+    @Post('upload')
+    @UseInterceptors(FileInterceptor('image'))
+    uploadFile(@UploadedFile() file) {
+        console.log(file);
+        
+        return { location : '/uploaded/image/path/image.png' }
     }
 }
