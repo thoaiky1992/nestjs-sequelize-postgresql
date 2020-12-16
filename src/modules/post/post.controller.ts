@@ -24,6 +24,6 @@ export class PostsController implements CrudController<PostEntity> {
     uploadFile(@UploadedFile() file) {
         console.log(file);
         
-        return { location : '/uploaded/image/path/image.png' }
+        return { location : 'https://locobee.com/mag/wp-content/uploads/2018/06/Locobee_Naruto_1.jpg' }
     }
 }
