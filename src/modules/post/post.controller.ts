@@ -23,7 +23,7 @@ export class PostsController implements CrudController<PostEntity> {
     @Post('upload')
     @UseInterceptors(FileInterceptor('image'))
     uploadFile(@UploadedFile() file) {
-        const filename = Date.now() + '.' + file.originalname.trim().split('.').slice(-1)[0];
+        const filename = Date.now() + '-' + file.originalname.trim().replace(new RegExp(' ','g'),'');
         fs.writeFileSync(join(__dirname,'..','..','..','public','uploads',
         'images',filename),file.buffer)
         console.log(file);
