@@ -1,20 +1,26 @@
-import { ExtractJwt, Strategy } from 'passport-jwt';
+import { ExtractJwt, Strategy, JwtFromRequestFunction } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { authDto } from './auth.dto';
 import { config } from 'dotenv';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from 'src/modules/users/user.entity';
-import { Model } from 'sequelize';
 import { JwtService } from '@nestjs/jwt';
 config();
 
+
+export const cookieExtractor: JwtFromRequestFunction = (req) => {
+    let token = null;
+    if (req && req.signedCookies) token = req.signedCookies['jwt'];
+    return token;
+}
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(@InjectModel(User) protected model: typeof User,private jwtService: JwtService) {
+    constructor(@InjectModel(User) protected model: typeof User, private jwtService: JwtService) {
         super({
-            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            jwtFromRequest: ExtractJwt.fromExtractors([
+                cookieExtractor,
+                ExtractJwt.fromAuthHeaderAsBearerToken(),
+            ]),
             ignoreExpiration: false,
             secretOrKey: process.env.MAIN_JWT_TOKEN,
             passReqToCallback: false

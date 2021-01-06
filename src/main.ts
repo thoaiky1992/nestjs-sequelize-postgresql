@@ -2,11 +2,20 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { config } from 'dotenv';
+import * as cookieParser from 'cookie-parser';
+import { RedisIoAdapter } from './library/socket.io/socket.io.adapter';
+import { NestLogger } from './library/logger/logger';
 config();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: new NestLogger(),
+  });
+  app.useWebSocketAdapter(new RedisIoAdapter(app))
   app.enableCors();
+  app.use(cookieParser(process.env.MAIN_JWT_TOKEN || 'thoaiky1992'))
+  
+
   app.setGlobalPrefix('api');
   const options = new DocumentBuilder()
     .addBearerAuth()

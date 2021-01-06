@@ -1,8 +1,8 @@
-import { Table, Column, Model, DataType, AutoIncrement , PrimaryKey, DefaultScope, Scopes } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, AutoIncrement, PrimaryKey, DefaultScope, Scopes } from 'sequelize-typescript';
 
 @DefaultScope(() => ({
     attributes: {
-      exclude: ['password']
+        exclude: ['password']
     },
 }))
 @Scopes(() => ({
@@ -39,4 +39,8 @@ export class User extends Model<User> {
 
     @Column
     created_at: Date;
+
+    public getRoom() {
+        return `user@${this.id}`;
+    }
 }

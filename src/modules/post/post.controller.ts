@@ -9,25 +9,27 @@ import { Sequelize } from 'sequelize';
 import { FileInterceptor } from '@nestjs/platform-express/multer/interceptors/file.interceptor';
 import { join } from 'path';
 import * as fs from 'fs';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('POSTS')
 @Crud({
-    model:{
+    model: {
         type: PostDto
     }
 })
+@UseGuards(JwtAuthGuard)
 @Controller('posts')
 export class PostsController implements CrudController<PostEntity> {
-    constructor(public service: PostsService,private sequelize: Sequelize){}
+    constructor(public service: PostsService, private sequelize: Sequelize) { }
 
     @Post('upload')
     @UseInterceptors(FileInterceptor('image'))
     uploadFile(@UploadedFile() file) {
-        const filename = Date.now() + '-' + file.originalname.trim().replace(new RegExp(' ','g'),'');
-        fs.writeFileSync(join(__dirname,'..','..','..','public','uploads',
-        'images',filename),file.buffer)
+        const filename = Date.now() + '-' + file.originalname.trim().replace(new RegExp(' ', 'g'), '');
+        fs.writeFileSync(join(__dirname, '..', '..', '..', 'public', 'uploads',
+            'images', filename), file.buffer)
         console.log(file);
-        
-        return { location : join('/','uploads','images',filename) }
+
+        return { location: join('/', 'uploads', 'images', filename) }
     }
 }
