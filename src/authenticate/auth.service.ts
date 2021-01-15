@@ -1,4 +1,4 @@
-import { Injectable, Scope } from '@nestjs/common';
+import { Injectable, Scope, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/modules/users/users.service';
@@ -25,26 +25,26 @@ export class AuthService {
                 email: authDto.email
             }
         });
-
+        
+        
         if (!user) {
             return null;
         }
-
+        
         // find if user password match
-        // const match = await this.comparePassword(authDto.password, user['dataValues'].password);
-        //
-        // if (!match) {
-        //     return null;
-        // }
-
-        // tslint:disable-next-line: no-string-literal
-        const result = user['dataValues'];
-
-        return result;
+        const match = await this.comparePassword(authDto.password, user.password);
+        
+        if (!match) {
+            return null;
+        }
+        return user;
     }
 
     public async login(payload: authDto, res: Response) {
         const user = await this.validateUser(payload);
+        if(!user){
+            throw new UnauthorizedException('Unauthorized')
+        }
         const token = await this.generateToken(user);
         // return { user, token };
         res.cookie('jwt', token, {
@@ -84,8 +84,8 @@ export class AuthService {
     }
 
     private async comparePassword(enteredPassword, dbPassword) {
-        // const match = await bcrypt.compare(enteredPassword, dbPassword);
-        // return match;
-        return enteredPassword === dbPassword;
+        const match = await bcrypt.compare(enteredPassword, dbPassword);
+        return match;
+        // return enteredPassword === dbPassword;
     }
 }
