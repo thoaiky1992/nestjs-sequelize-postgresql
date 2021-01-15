@@ -25,25 +25,21 @@ export class AuthService {
                 email: authDto.email
             }
         });
-        
-        
         if (!user) {
             return null;
         }
-        
         // find if user password match
         const match = await this.comparePassword(authDto.password, user.password);
-        
         if (!match) {
             return null;
         }
-        return user;
+        return user.toJSON();
     }
 
     public async login(payload: authDto, res: Response) {
         const user = await this.validateUser(payload);
         if(!user){
-            throw new UnauthorizedException('Unauthorized')
+            throw new UnauthorizedException('Unauthorized');
         }
         const token = await this.generateToken(user);
         // return { user, token };

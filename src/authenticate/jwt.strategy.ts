@@ -28,8 +28,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     async validate(payload) {
-        console.log(payload);
-        
         const user = await this.model.findByPk(payload.id);
         return user;
     }
