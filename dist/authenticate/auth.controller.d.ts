@@ -2,6 +2,7 @@ import { AuthService } from './auth.service';
 import { UserDto } from 'src/modules/users/user.dto';
 import { authDto } from './auth.dto';
 import { Response } from 'express';
+import { Request } from 'express';
 export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
@@ -12,4 +13,5 @@ export declare class AuthController {
         user: any;
         token: string;
     }>;
+    check(req: Request): Promise<boolean>;
 }

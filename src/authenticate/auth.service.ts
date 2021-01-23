@@ -53,7 +53,7 @@ export class AuthService {
 
     public async create(user: UserDto) {
         // hash the password
-        const pass = await this.hashPassword(user.password);
+        user.password = await this.hashPassword(user.password);
 
         // create the user
         const newUser = await this.userModel.scope('authenticate').create(user);
@@ -84,4 +84,5 @@ export class AuthService {
         return match;
         // return enteredPassword === dbPassword;
     }
+
 }

@@ -1,10 +1,11 @@
-import { Controller, Body, Post, UseGuards, Request, Res } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Body, Post, UseGuards, Res, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserDto } from 'src/modules/users/user.dto';
 import { authDto } from './auth.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express'
+import {JwtAuthGuard} from "./jwt-auth.guard";
+import { Request } from 'express';
 
 @ApiTags('Authenticate')
 @Controller('auth')
@@ -20,4 +21,11 @@ export class AuthController {
     async signUp(@Body() user: UserDto) {
         return await this.authService.create(user);
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Post('check')
+    async check(@Req() req: Request) {
+        return true;
+    }
+
 }

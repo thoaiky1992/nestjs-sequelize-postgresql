@@ -18,6 +18,7 @@ const auth_service_1 = require("./auth.service");
 const user_dto_1 = require("../modules/users/user.dto");
 const auth_dto_1 = require("./auth.dto");
 const swagger_1 = require("@nestjs/swagger");
+const jwt_auth_guard_1 = require("./jwt-auth.guard");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -27,6 +28,9 @@ let AuthController = class AuthController {
     }
     async signUp(user) {
         return await this.authService.create(user);
+    }
+    async check(req) {
+        return true;
     }
 };
 __decorate([
@@ -43,6 +47,14 @@ __decorate([
     __metadata("design:paramtypes", [user_dto_1.UserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "signUp", null);
+__decorate([
+    common_1.UseGuards(jwt_auth_guard_1.JwtAuthGuard),
+    common_1.Post('check'),
+    __param(0, common_1.Req()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "check", null);
 AuthController = __decorate([
     swagger_1.ApiTags('Authenticate'),
     common_1.Controller('auth'),

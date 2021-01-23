@@ -15,5 +15,5 @@ export class UserDto {
     @ApiProperty()
     @IsNotEmpty()
     @MinLength(6)
-    readonly password: string;
+    password: string;
 }

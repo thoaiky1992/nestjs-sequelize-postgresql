@@ -67,7 +67,7 @@ let AuthService = class AuthService {
         return { token };
     }
     async create(user) {
-        const pass = await this.hashPassword(user.password);
+        user.password = await this.hashPassword(user.password);
         const newUser = await this.userModel.scope('authenticate').create(user);
         const _a = newUser['dataValues'], { password } = _a, result = __rest(_a, ["password"]);
         const token = await this.generateToken(result);
