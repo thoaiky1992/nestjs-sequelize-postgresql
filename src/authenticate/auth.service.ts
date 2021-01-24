@@ -47,6 +47,7 @@ export class AuthService {
             httpOnly: true,
             signed: true,
             sameSite: 'strict',
+            maxAge: ( 1000 * 60 * 60 * 24 ) * 60, // would expire after 60 days
         }).send({ token })
         return {token};
     }
