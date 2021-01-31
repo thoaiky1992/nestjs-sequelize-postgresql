@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './user.controller';
 import { Sequelize } from 'sequelize';
-import { User } from './user.entity';
+import { User } from './user.model';
 import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({

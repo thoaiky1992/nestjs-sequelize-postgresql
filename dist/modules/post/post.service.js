@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostsService = void 0;
 const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
-const post_entity_1 = require("./post.entity");
+const post_model_1 = require("./post.model");
 const core_1 = require("@nestjs/core");
 const sequelize_2 = require("sequelize");
 const sequelize_model_service_1 = require("../../library/crud/sequelize.model.service");
@@ -23,10 +23,14 @@ let PostsService = class PostsService extends sequelize_model_service_1.Sequeliz
     constructor(model, sequelize, request) {
         super(model, sequelize, request);
     }
+    async createOne(req, dto) {
+        dto.userId = this.request.user['id'];
+        return super.createOne(req, dto);
+    }
 };
 PostsService = __decorate([
     common_1.Injectable({ scope: common_1.Scope.REQUEST }),
-    __param(0, sequelize_1.InjectModel(post_entity_1.Post)),
+    __param(0, sequelize_1.InjectModel(post_model_1.Post)),
     __param(2, common_1.Inject(core_1.REQUEST)),
     __metadata("design:paramtypes", [Object, sequelize_2.Sequelize, Object])
 ], PostsService);

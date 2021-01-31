@@ -29,7 +29,7 @@ const bcrypt = require("bcrypt");
 const jwt_1 = require("@nestjs/jwt");
 const users_service_1 = require("../modules/users/users.service");
 const user_dto_1 = require("../modules/users/user.dto");
-const user_entity_1 = require("../modules/users/user.entity");
+const user_model_1 = require("../modules/users/user.model");
 const sequelize_1 = require("@nestjs/sequelize");
 const sequelize_2 = require("sequelize");
 let AuthService = class AuthService {
@@ -89,7 +89,7 @@ let AuthService = class AuthService {
 };
 AuthService = __decorate([
     common_1.Injectable(),
-    __param(0, sequelize_1.InjectModel(user_entity_1.User)),
+    __param(0, sequelize_1.InjectModel(user_model_1.User)),
     __metadata("design:paramtypes", [Object, sequelize_2.Sequelize,
         jwt_1.JwtService])
 ], AuthService);

@@ -1,5 +1,5 @@
 import { Strategy, JwtFromRequestFunction } from 'passport-jwt';
-import { User } from 'src/modules/users/user.entity';
+import { User } from 'src/modules/users/user.model';
 import { JwtService } from '@nestjs/jwt';
 export declare const cookieExtractor: JwtFromRequestFunction;
 declare const JwtStrategy_base: new (...args: any[]) => Strategy;

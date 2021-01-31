@@ -1,4 +1,4 @@
-import { User } from './user.entity';
+import { User } from './user.model';
 import { UserDto } from './user.dto';
 import { SequelizeModelService } from '../../library/crud/sequelize.model.service';
 import { Sequelize } from 'sequelize';

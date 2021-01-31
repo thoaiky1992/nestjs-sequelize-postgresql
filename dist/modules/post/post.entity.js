@@ -44,7 +44,7 @@ __decorate([
 ], Post.prototype, "userId", void 0);
 __decorate([
     sequelize_typescript_1.BelongsTo(() => user_entity_1.User),
-    __metadata("design:type", user_entity_1.User)
+    __metadata("design:type", Array)
 ], Post.prototype, "user", void 0);
 Post = __decorate([
     sequelize_typescript_1.Table({

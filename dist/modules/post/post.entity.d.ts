@@ -5,5 +5,5 @@ export declare class Post extends Model<Post> {
     body: string;
     createdAt: Date;
     userId: number;
-    user: User;
+    user: User[];
 }

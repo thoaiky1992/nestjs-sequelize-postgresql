@@ -11,13 +11,26 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
-      body: {
+      description: {
         type: Sequelize.STRING,
+      },
+      image: {
+        type: Sequelize.STRING,
+      },
+      content: {
+        type: Sequelize.TEXT,
       },
       user_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
+          key: 'id'
+        },
+      },
+      category_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'categories',
           key: 'id'
         },
       },
@@ -34,11 +47,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+    await queryInterface.dropTable('posts');
   }
 };

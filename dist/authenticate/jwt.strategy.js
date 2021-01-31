@@ -18,7 +18,7 @@ const passport_1 = require("@nestjs/passport");
 const common_1 = require("@nestjs/common");
 const dotenv_1 = require("dotenv");
 const sequelize_1 = require("@nestjs/sequelize");
-const user_entity_1 = require("../modules/users/user.entity");
+const user_model_1 = require("../modules/users/user.model");
 const jwt_1 = require("@nestjs/jwt");
 dotenv_1.config();
 exports.cookieExtractor = (req) => {
@@ -48,7 +48,7 @@ let JwtStrategy = class JwtStrategy extends passport_1.PassportStrategy(passport
 };
 JwtStrategy = __decorate([
     common_1.Injectable(),
-    __param(0, sequelize_1.InjectModel(user_entity_1.User)),
+    __param(0, sequelize_1.InjectModel(user_model_1.User)),
     __metadata("design:paramtypes", [Object, jwt_1.JwtService])
 ], JwtStrategy);
 exports.JwtStrategy = JwtStrategy;

@@ -1,7 +1,7 @@
 import { JwtService } from '@nestjs/jwt';
 import { UserDto } from 'src/modules/users/user.dto';
 import { authDto } from './auth.dto';
-import { User } from 'src/modules/users/user.entity';
+import { User } from 'src/modules/users/user.model';
 import { Sequelize } from 'sequelize';
 import { Response } from 'express';
 export declare class AuthService {

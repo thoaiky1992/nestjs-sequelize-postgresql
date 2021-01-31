@@ -16,7 +16,7 @@ const jwt_strategy_1 = require("./jwt.strategy");
 const users_module_1 = require("../modules/users/users.module");
 const auth_controller_1 = require("./auth.controller");
 const dotenv_1 = require("dotenv");
-const user_entity_1 = require("../modules/users/user.entity");
+const user_model_1 = require("../modules/users/user.model");
 const sequelize_1 = require("@nestjs/sequelize");
 dotenv_1.config();
 let AuthModule = class AuthModule {
@@ -25,7 +25,7 @@ AuthModule = __decorate([
     common_1.Global(),
     common_1.Module({
         imports: [
-            sequelize_1.SequelizeModule.forFeature([user_entity_1.User]),
+            sequelize_1.SequelizeModule.forFeature([user_model_1.User]),
             passport_1.PassportModule,
             jwt_1.JwtModule.register({
                 secret: process.env.MAIN_JWT_TOKEN,

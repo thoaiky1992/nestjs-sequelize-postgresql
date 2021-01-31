@@ -10,25 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostDto = void 0;
-const class_validator_1 = require("class-validator");
 const swagger_1 = require("@nestjs/swagger");
 class PostDto {
 }
 __decorate([
     swagger_1.ApiProperty(),
-    class_validator_1.IsNotEmpty(),
-    class_validator_1.MinLength(4),
     __metadata("design:type", String)
 ], PostDto.prototype, "title", void 0);
 __decorate([
     swagger_1.ApiProperty(),
-    class_validator_1.IsNotEmpty(),
     __metadata("design:type", String)
-], PostDto.prototype, "body", void 0);
+], PostDto.prototype, "description", void 0);
 __decorate([
     swagger_1.ApiProperty(),
-    class_validator_1.IsNotEmpty(),
     __metadata("design:type", String)
+], PostDto.prototype, "image", void 0);
+__decorate([
+    swagger_1.ApiProperty(),
+    __metadata("design:type", String)
+], PostDto.prototype, "content", void 0);
+__decorate([
+    swagger_1.ApiProperty(),
+    __metadata("design:type", Number)
 ], PostDto.prototype, "userId", void 0);
 exports.PostDto = PostDto;
 //# sourceMappingURL=post.dto.js.map

@@ -1,29 +1,22 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo , AutoIncrement } from 'sequelize-typescript';
-import { User } from '../users/user.entity';
+import { User } from '../users/user.model';
 
 
 @Table({
-    tableName: 'posts',
+    tableName: 'profile_user',
     underscored: true,
     timestamps: true
 })
-export class Post extends Model<Post> {
+export class ProfileUser extends Model<ProfileUser> {
     @Column({
         type: DataType.STRING,
-        allowNull: false,
     })
-    title: string;
+    address: string;
 
     @Column({
-        type: DataType.TEXT,
-        allowNull: false,
+        type: DataType.INTEGER,
     })
-    body: string;
-
-    @Column({
-        type: DataType.DATE,
-    })
-    createdAt: Date;
+    phone: number;
 
     @ForeignKey(() => User)
     @Column({

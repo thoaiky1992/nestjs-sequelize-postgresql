@@ -10,15 +10,16 @@ exports.PostsModule = void 0;
 const common_1 = require("@nestjs/common");
 const post_service_1 = require("./post.service");
 const post_controller_1 = require("./post.controller");
-const post_entity_1 = require("../post/post.entity");
+const post_model_1 = require("./post.model");
 const sequelize_1 = require("@nestjs/sequelize");
 const auth_module_1 = require("../../authenticate/auth.module");
+const profile_user_model_1 = require("../profile_user/profile_user.model");
 let PostsModule = class PostsModule {
 };
 PostsModule = __decorate([
     common_1.Module({
         imports: [
-            sequelize_1.SequelizeModule.forFeature([post_entity_1.Post]),
+            sequelize_1.SequelizeModule.forFeature([post_model_1.Post, profile_user_model_1.ProfileUser]),
         ],
         providers: [post_service_1.PostsService,],
         exports: [post_service_1.PostsService],

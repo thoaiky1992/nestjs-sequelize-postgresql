@@ -1,4 +1,15 @@
-import { Table, Column, Model, DataType, AutoIncrement, PrimaryKey, DefaultScope, Scopes } from 'sequelize-typescript';
+import {
+    Table,
+    Column,
+    Model,
+    DataType,
+    AutoIncrement,
+    PrimaryKey,
+    DefaultScope,
+    Scopes,
+    HasOne
+} from 'sequelize-typescript';
+import {ProfileUser} from "../profile_user/profile_user.model";
 
 @DefaultScope(() => ({
     attributes: {
@@ -39,6 +50,9 @@ export class User extends Model<User> {
 
     @Column
     created_at: Date;
+
+    @HasOne(() => ProfileUser)
+    profile: ProfileUser
 
     public getRoom() {
         return `user@${this.id}`;

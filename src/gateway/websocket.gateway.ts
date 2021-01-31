@@ -2,7 +2,7 @@ import { WebSocketGateway, OnGatewayInit, OnGatewayConnection } from '@nestjs/we
 import { Server, Socket } from 'socket.io';
 import * as jwt from "jsonwebtoken";
 import { InjectModel } from "@nestjs/sequelize";
-import { User } from 'src/modules/users/user.entity';
+import { User } from 'src/modules/users/user.model';
 import { System } from './system.socket';
 
 @WebSocketGateway()

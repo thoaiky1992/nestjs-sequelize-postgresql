@@ -4,15 +4,17 @@ import { ApiProperty } from '@nestjs/swagger';
 export class PostDto {
 
     @ApiProperty()
-    @IsNotEmpty()
-    @MinLength(4)
-    readonly title: string;
+    title: string;
 
     @ApiProperty()
-    @IsNotEmpty()
-    readonly body: string;
+    description: string;
 
     @ApiProperty()
-    @IsNotEmpty()
-    readonly userId: string;
+    image: string;
+
+    @ApiProperty()
+    content: string;
+
+    @ApiProperty()
+    userId: number;
 }

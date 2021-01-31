@@ -5,7 +5,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { FindOptions } from 'sequelize/types';
 import { UsersService } from './users.service';
 import { UserDto } from './user.dto';
-import { User } from './user.entity';
+import { User } from './user.model';
 import { JwtAuthGuard } from 'src/authenticate/jwt-auth.guard';
 
 @ApiTags('USERS')

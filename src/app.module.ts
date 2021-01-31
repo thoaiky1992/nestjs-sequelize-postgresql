@@ -8,6 +8,7 @@ import { config } from 'dotenv';
 import { AuthModule } from './authenticate/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { CategoryModule } from "./modules/category/category.module";
 config();
 
 @Module({
@@ -27,7 +28,8 @@ config();
     }),
     UsersModule,
     PostsModule,
-    AuthModule
+    AuthModule,
+    CategoryModule
   ],
   controllers: [AppController],
   providers: [AppService],

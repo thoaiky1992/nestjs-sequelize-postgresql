@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { config } from 'dotenv';
 import { InjectModel } from '@nestjs/sequelize';
-import { User } from 'src/modules/users/user.entity';
+import { User } from 'src/modules/users/user.model';
 import { JwtService } from '@nestjs/jwt';
 config();
 

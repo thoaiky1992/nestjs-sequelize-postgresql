@@ -16,7 +16,7 @@ exports.StaffGateway = void 0;
 const websockets_1 = require("@nestjs/websockets");
 const jwt = require("jsonwebtoken");
 const sequelize_1 = require("@nestjs/sequelize");
-const user_entity_1 = require("../modules/users/user.entity");
+const user_model_1 = require("../modules/users/user.model");
 const system_socket_1 = require("./system.socket");
 let StaffGateway = class StaffGateway {
     constructor(user) {
@@ -47,7 +47,7 @@ let StaffGateway = class StaffGateway {
 };
 StaffGateway = __decorate([
     websockets_1.WebSocketGateway(),
-    __param(0, sequelize_1.InjectModel(user_entity_1.User)),
+    __param(0, sequelize_1.InjectModel(user_model_1.User)),
     __metadata("design:paramtypes", [Object])
 ], StaffGateway);
 exports.StaffGateway = StaffGateway;

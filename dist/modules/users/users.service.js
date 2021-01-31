@@ -13,7 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
-const user_entity_1 = require("./user.entity");
+const user_model_1 = require("./user.model");
 const user_dto_1 = require("./user.dto");
 const common_1 = require("@nestjs/common");
 const sequelize_model_service_1 = require("../../library/crud/sequelize.model.service");
@@ -40,7 +40,7 @@ let UsersService = class UsersService extends sequelize_model_service_1.Sequeliz
 };
 UsersService = __decorate([
     common_1.Injectable(),
-    __param(0, sequelize_2.InjectModel(user_entity_1.User)),
+    __param(0, sequelize_2.InjectModel(user_model_1.User)),
     __param(2, common_1.Inject(core_1.REQUEST)),
     __metadata("design:paramtypes", [Object, sequelize_1.Sequelize, Object])
 ], UsersService);

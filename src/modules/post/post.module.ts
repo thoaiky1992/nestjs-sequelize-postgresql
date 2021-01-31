@@ -4,15 +4,16 @@ import { PostsService } from './post.service';
 // Controller
 import { PostsController } from './post.controller';
 //Entity ( Model )
-import { Post } from '../post/post.entity';
+import { Post } from './post.model';
 
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AuthModule } from 'src/authenticate/auth.module';
+import {ProfileUser} from "../profile_user/profile_user.model";
 
 
 @Module({
   imports: [
-    SequelizeModule.forFeature([Post]),
+    SequelizeModule.forFeature([Post, ProfileUser]),
   ],
   providers: [PostsService,],
   exports: [PostsService],

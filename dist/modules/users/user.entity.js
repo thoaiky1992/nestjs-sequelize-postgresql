@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
+const profile_user_model_1 = require("../profile_user/profile_user.model");
 let User = class User extends sequelize_typescript_1.Model {
     getRoom() {
         return `user@${this.id}`;
@@ -42,6 +43,10 @@ __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", Date)
 ], User.prototype, "created_at", void 0);
+__decorate([
+    sequelize_typescript_1.HasOne(() => profile_user_model_1.ProfileUser),
+    __metadata("design:type", profile_user_model_1.ProfileUser)
+], User.prototype, "profile", void 0);
 User = __decorate([
     sequelize_typescript_1.DefaultScope(() => ({
         attributes: {

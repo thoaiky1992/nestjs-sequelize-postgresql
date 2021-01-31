@@ -17,6 +17,7 @@ const dotenv_1 = require("dotenv");
 const auth_module_1 = require("./authenticate/auth.module");
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
+const category_module_1 = require("./modules/category/category.module");
 dotenv_1.config();
 let AppModule = class AppModule {
 };
@@ -38,7 +39,8 @@ AppModule = __decorate([
             }),
             users_module_1.UsersModule,
             post_module_1.PostsModule,
-            auth_module_1.AuthModule
+            auth_module_1.AuthModule,
+            category_module_1.CategoryModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

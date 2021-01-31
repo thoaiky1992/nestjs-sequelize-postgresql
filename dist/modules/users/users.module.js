@@ -10,13 +10,13 @@ exports.UsersModule = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const user_controller_1 = require("./user.controller");
-const user_entity_1 = require("./user.entity");
+const user_model_1 = require("./user.model");
 const sequelize_1 = require("@nestjs/sequelize");
 let UsersModule = class UsersModule {
 };
 UsersModule = __decorate([
     common_1.Module({
-        imports: [sequelize_1.SequelizeModule.forFeature([user_entity_1.User])],
+        imports: [sequelize_1.SequelizeModule.forFeature([user_model_1.User])],
         controllers: [user_controller_1.UsersController],
         providers: [users_service_1.UsersService,],
         exports: [users_service_1.UsersService],

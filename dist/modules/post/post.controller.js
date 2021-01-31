@@ -20,15 +20,17 @@ const post_dto_1 = require("./post.dto");
 const swagger_1 = require("@nestjs/swagger");
 const jwt_auth_guard_1 = require("../../authenticate/jwt-auth.guard");
 const sequelize_1 = require("sequelize");
-const file_interceptor_1 = require("@nestjs/platform-express/multer/interceptors/file.interceptor");
 const path_1 = require("path");
 const fs = require("fs");
+const platform_express_1 = require("@nestjs/platform-express");
 let PostsController = class PostsController {
     constructor(service, sequelize) {
         this.service = service;
         this.sequelize = sequelize;
     }
-    uploadFile(file) {
+    uploadFile(files) {
+        console.log(files);
+        const file = files[Object.keys(files)[0]][0];
         const filename = Date.now() + '-' + file.originalname.trim().replace(new RegExp(' ', 'g'), '');
         fs.writeFileSync(path_1.join(__dirname, '..', '..', '..', 'public', 'uploads', 'images', filename), file.buffer);
         console.log(file);
@@ -37,8 +39,11 @@ let PostsController = class PostsController {
 };
 __decorate([
     common_1.Post('upload'),
-    common_1.UseInterceptors(file_interceptor_1.FileInterceptor('image')),
-    __param(0, common_1.UploadedFile()),
+    common_1.UseInterceptors(platform_express_1.FileFieldsInterceptor([
+        { name: 'file', maxCount: 1 },
+        { name: 'image', maxCount: 1 },
+    ])),
+    __param(0, common_1.UploadedFiles()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
